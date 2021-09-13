@@ -114,15 +114,16 @@ const icons = [
 
 var iconsContainer = document.getElementById("container");
 
-const printIcons = () => icons.forEach(element => {
-    //destrutturazione
+const printIcons = (element) => {
     let {name, family, prefix} = element;
 
     iconsContainer.innerHTML += `<div class="card">
     <div class="icon"><i class="${family} ${prefix}${name}"></i></div>
     <p class="icon-name">${name}</p>
-    </div>`
-});
+    </div>`;
+};
+
+// icons.forEach(element => printIcons(element));
 
 // Milestone 2
 // Coloriamo le icone per tipo
@@ -142,17 +143,16 @@ const coloredIcons = icons.map((element) => {
 });
 
 //stampo gli elementi con il colore corrispondente
-const printColoredIcons = () => coloredIcons.forEach(element => {
-    //destrutturazione
+const printColoredIcons = (element) => {
     let {name, family, prefix, color} = element;
 
     iconsContainer.innerHTML += `<div class="card">
     <div class="icon" style="color:${color}"><i class="${family} ${prefix}${name}"></i></div>
     <p class="icon-name">${name}</p>
-</div>`
-});
+    </div>`;
+};
 
-printColoredIcons();
+coloredIcons.forEach(element => printColoredIcons(element));
 
 // Milestone 3
 // Creiamo una select con i tipi di icone e usiamola per filtrare le icone
@@ -183,12 +183,7 @@ select.addEventListener("change",
         //stampo le icone che possiedono la categoria selezionata
         coloredIcons.forEach(element => {
             if(element.category == select.value || select.value == "all") {
-                let {name, family, prefix, color} = element;
-
-                iconsContainer.innerHTML += `<div class="card">
-                <div class="icon" style="color:${color}"><i class="${family} ${prefix}${name}"></i></div>
-                 <p class="icon-name">${name}</p>
-                </div>`
+                printColoredIcons(element);
             }
         })
     }
