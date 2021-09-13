@@ -109,17 +109,53 @@ const icons = [
 	},
   ];
 
-  // Milestone 1
+// Milestone 1
 // Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout.
 
 var iconsContainer = document.getElementById("container");
 
-icons.forEach(element => {
+const printIcons = () => icons.forEach(element => {
     //destrutturazione
-    let {name, family, prefix, category} = element;
+    let {name, family, prefix} = element;
 
     iconsContainer.innerHTML += `<div class="card">
-    <div class="icon ${category}"><i class="${family} ${prefix}${name}"></i></div>
+    <div class="icon"><i class="${family} ${prefix}${name}"></i></div>
+    <p class="icon-name">${name}</p>
+    </div>`
+});
+
+// Milestone 2
+// Coloriamo le icone per tipo
+
+//per colorare le icone è preferibile clonare l'array di oggetti originale aggiungendo, per ogni oggetto, una proprietà "colore" il cui valore viene attribuito leggendo un secondo oggetto che ha come chiavi il valore delle categorie di icons. Nella stampa il colore va aggiunto con style.
+
+//creo un oggetto che contenga i colori associati alle categorie
+var colors = {
+    "food" : "#D15006",
+    "beverage" : "#0696D1",
+    "animal": "#049714"
+}
+
+//creo una copia dell'array icons al quale aggiungo la proprietà colore
+const coloredIcons = icons.map((element) => {
+    return {...element, "color": colors[element.category]}
+});
+
+//stampo gli elementi con il colore corrispondente
+const printColoredIcons = () => coloredIcons.forEach(element => {
+    //destrutturazione
+    let {name, family, prefix, color} = element;
+
+    iconsContainer.innerHTML += `<div class="card">
+    <div class="icon" style="color:${color}"><i class="${family} ${prefix}${name}"></i></div>
     <p class="icon-name">${name}</p>
 </div>`
 });
+
+printColoredIcons();
+
+
+
+//per compilare dinamicamente la select devo creare un array che contenga le categorie dell'array di oggetti icons. Con forEach attraverso l'array icons e, se la categoria non è presente nell'array delle categorie, la aggiungo. Infine, compilo la select con un altro ciclo forEach che attraversa l'array di categorie.
+
+//per stampare in pagina solo le categorie richieste devo associare un evento change alla select e, con un filter che controlli il value della select, stampare solo la categoria selezionata. Devo svuotare l'innerHTML del container ad ogni change per evitare le stampe si accumulino. Infine, per la select All, devo aggiungere una condizione OR all'if che stampa la categoria selezionata.

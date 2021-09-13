@@ -44,7 +44,7 @@ main {
 .container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     max-width: 1200px;
     width: 95%;
     margin: auto;
@@ -70,16 +70,4 @@ main {
 
 .card .icon-name {
     font-size: 1rem;
-}
-
-.card .food {
-    color: #fdfd3e;
-}
-
-.card .beverage {
-    color: #ff0000;
-}
-
-.card .animal {
-    color: #008000;
 }
