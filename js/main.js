@@ -154,8 +154,42 @@ const printColoredIcons = () => coloredIcons.forEach(element => {
 
 printColoredIcons();
 
-
+// Milestone 3
+// Creiamo una select con i tipi di icone e usiamola per filtrare le icone
 
 //per compilare dinamicamente la select devo creare un array che contenga le categorie dell'array di oggetti icons. Con forEach attraverso l'array icons e, se la categoria non è presente nell'array delle categorie, la aggiungo. Infine, compilo la select con un altro ciclo forEach che attraversa l'array di categorie.
 
+let iconCategories = [];
+
+icons.forEach(element => {
+    if(!iconCategories.includes(element.category)){
+        iconCategories.push(element.category);
+    }
+});
+
+let select = document.getElementById("filter");
+
+iconCategories.forEach(element => {
+    select.innerHTML += `<option value="${element}">${element}</option>`
+});
+
 //per stampare in pagina solo le categorie richieste devo associare un evento change alla select e, con un filter che controlli il value della select, stampare solo la categoria selezionata. Devo svuotare l'innerHTML del container ad ogni change per evitare le stampe si accumulino. Infine, per la select All, devo aggiungere una condizione OR all'if che stampa la categoria selezionata.
+
+select.addEventListener("change", 
+    function() {
+        //svuoto il contenitore
+        iconsContainer.innerHTML = "";
+
+        //stampo le icone che possiedono la categoria selezionata
+        coloredIcons.forEach(element => {
+            if(element.category == select.value || select.value == "all") {
+                let {name, family, prefix, color} = element;
+
+                iconsContainer.innerHTML += `<div class="card">
+                <div class="icon" style="color:${color}"><i class="${family} ${prefix}${name}"></i></div>
+                 <p class="icon-name">${name}</p>
+                </div>`
+            }
+        })
+    }
+);
