@@ -170,7 +170,7 @@ icons.forEach(element => {
 let select = document.getElementById("filter");
 
 iconCategories.forEach(element => {
-    select.innerHTML += `<option value="${element}">${element}</option>`
+    select.innerHTML += `<option value="${element}">${element}</option>`;
 });
 
 //per stampare in pagina solo le categorie richieste devo associare un evento change alla select e, con un filter che controlli il value della select, stampare solo la categoria selezionata. Devo svuotare l'innerHTML del container ad ogni change per evitare le stampe si accumulino. Infine, per la select All, devo aggiungere una condizione OR all'if che stampa la categoria selezionata.
@@ -181,10 +181,10 @@ select.addEventListener("change",
         iconsContainer.innerHTML = "";
 
         //stampo le icone che possiedono la categoria selezionata
-        coloredIcons.forEach(element => {
+        coloredIcons.filter(element => {
             if(element.category == select.value || select.value == "all") {
                 printColoredIcons(element);
             }
-        })
+        });
     }
 );
